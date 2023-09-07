@@ -65,36 +65,36 @@ public class StudentAccount {
 
     void initialize() {
     	   frame = new JFrame("Student Account");
-           frame.setBounds(100, 100, 1058, 786);
+           frame.setBounds(100, 100, 1000, 700);
            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
            frame.getContentPane().setLayout(null);
 
         JLabel lblNewLabel = new JLabel("Student ID: " + studentId);
-        lblNewLabel.setBounds(187, 11, 200, 20);
+        lblNewLabel.setBounds(20, 20, 200, 20);
         frame.getContentPane().add(lblNewLabel);
 
         JLabel lblNewLabel_1 = new JLabel("Student Name: " + studentName);
-        lblNewLabel_1.setBounds(338, 11, 200, 20);
+        lblNewLabel_1.setBounds(20, 50, 200, 20);
         frame.getContentPane().add(lblNewLabel_1);
 
 
         JLabel txtlabel = new JLabel("Succeeding kilometers: ");
-        txtlabel.setBounds(250, 164, 265, 105);
+        txtlabel.setBounds(20, 350, 200, 20);
        frame.getContentPane().add(txtlabel);
 
         JLabel textlabel2 = new JLabel("TOTAL FARE");
-        textlabel2.setBounds(250, 164, 265, 50);
+        textlabel2.setBounds(20, 320, 200, 20);
         frame.getContentPane().add(textlabel2);
 
         JButton calculateButton = new JButton("Calculate Fare");
-        calculateButton.setBounds(250, 83, 150, 30);
+        calculateButton.setBounds(527, 161, 150, 30);
         frame.getContentPane().add(calculateButton);
         calculateButton.setBackground(Color.BLACK);
         calculateButton.setForeground(Color.WHITE);
         calculateButton.setFont(new Font("Arial", Font.BOLD, 16));
         
         JButton pointAButton = new JButton("Select Starting Landmark:");
-        pointAButton.setBounds(22, 159, 218, 30);
+        pointAButton.setBounds(500, 80, 200, 30);
         frame.getContentPane().add(pointAButton);
         pointAButton.addActionListener(new ActionListener() {
             @Override
@@ -107,7 +107,7 @@ public class StudentAccount {
             
 
         JButton pointBButton = new JButton("Select Ending Landmark");
-        pointBButton.setBounds(22, 200, 218, 30);
+        pointBButton.setBounds(500, 120, 200, 30);
         frame.getContentPane().add(pointBButton);
         
         pointBButton.addActionListener(new ActionListener() {
@@ -121,16 +121,16 @@ public class StudentAccount {
         JList<String> resultList =  new JList<>();
         resultListModel = new DefaultListModel<>();
         resultList.setModel(resultListModel);
-        resultList.setBounds(22, 280, 428, 456);
+        resultList.setBounds(0, 0, 450, 200);
         frame.getContentPane().add(resultList);
         JScrollPane scrollPane = new JScrollPane(resultList);
-        scrollPane.setBounds(22, 280, 428, 456);
+        scrollPane.setBounds(20, 120, 450, 200);
 
         frame.getContentPane().add(scrollPane);
 
 
         JLabel lblNewLabel_2 = new JLabel("LANDMARK:");
-        lblNewLabel_2.setBounds(250, 124, 200, 14);
+        lblNewLabel_2.setBounds(20, 80, 200, 14);
         frame.getContentPane().add(lblNewLabel_2);
         
        
@@ -141,12 +141,12 @@ public class StudentAccount {
         calculateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String url = "jdbc:mysql://localhost:3306/University";
+            	String url = "jdbc:mysql://localhost:3306/university";
                 String username = "root";
-                String password = "Commute123";
+                String password = "Commute123"; 
 
                 try {
-                    Class.forName("com.mysql.jdbc.Driver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
 
   
                    
@@ -169,7 +169,7 @@ public class StudentAccount {
                     int size = resultListModel.getSize() + -1;
                     
                     JLabel lblNewLabel_3 = new JLabel("New label");
-                    lblNewLabel_3.setBounds(250, 137, 150, 40);
+                    lblNewLabel_3.setBounds(20, 380, 200, 20);
                     frame.getContentPane().add(lblNewLabel_3);
                     
                     lblNewLabel_3.setText(" " + size);  

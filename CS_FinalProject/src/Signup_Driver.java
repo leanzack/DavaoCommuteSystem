@@ -22,11 +22,11 @@ import java.sql.Statement;
 import javax.swing.border.MatteBorder;
 
 @SuppressWarnings("serial")
-public class Signup extends JFrame {
+public class Signup_Driver extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField Student_ID;
-	private JTextField Student_Name;
+	private JTextField DriverPlate;
+	private JTextField Driver_Name;
 
 	/**
 	 * Launch the application.
@@ -35,7 +35,7 @@ public class Signup extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Signup frame = new Signup();
+					Signup_Driver frame = new Signup_Driver();
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -48,7 +48,7 @@ public class Signup extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Signup() {
+	public Signup_Driver() {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -65,35 +65,35 @@ public class Signup extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		Student_ID = new JTextField();
-		Student_ID.setCaretColor(SystemColor.menu);
-		Student_ID.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
-		Student_ID.setText("Student ID");
-		Student_ID.setForeground(Color.BLACK);
-		Student_ID.setEditable(false);
-		Student_ID.setColumns(10);
-		Student_ID.setBackground(SystemColor.menu);
-		Student_ID.setBounds(49, 73, 110, 20);
-		contentPane.add(Student_ID);
+		DriverPlate = new JTextField();
+		DriverPlate.setCaretColor(SystemColor.menu);
+		DriverPlate.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
+		DriverPlate.setText("Driver Plate");
+		DriverPlate.setForeground(Color.BLACK);
+		DriverPlate.setEditable(false);
+		DriverPlate.setColumns(10);
+		DriverPlate.setBackground(SystemColor.menu);
+		DriverPlate.setBounds(49, 73, 110, 20);
+		contentPane.add(DriverPlate);
 		
-		Student_ID = new JTextField();
-		Student_ID.setColumns(10);
-		Student_ID.setBounds(49, 104, 230, 25);
-		contentPane.add(Student_ID);
+		DriverPlate = new JTextField();
+		DriverPlate.setColumns(10);
+		DriverPlate.setBounds(49, 104, 230, 25);
+		contentPane.add(DriverPlate);
 		
-		Student_Name = new JTextField();
-		Student_Name.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
-		Student_Name.setText("Student name");
-		Student_Name.setForeground(new Color(0, 0, 0));
-		Student_Name.setEditable(false);
-		Student_Name.setColumns(10);
-		Student_Name.setBackground(SystemColor.menu);
-		Student_Name.setBounds(49, 140, 110, 20);
-		contentPane.add(Student_Name);
+		Driver_Name = new JTextField();
+		Driver_Name.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
+		Driver_Name.setText("Driver name");
+		Driver_Name.setForeground(new Color(0, 0, 0));
+		Driver_Name.setEditable(false);
+		Driver_Name.setColumns(10);
+		Driver_Name.setBackground(SystemColor.menu);
+		Driver_Name.setBounds(49, 140, 110, 20);
+		contentPane.add(Driver_Name);
 		
-		Student_Name = new JTextField();
-		Student_Name.setBounds(49, 171, 230, 25);
-		contentPane.add(Student_Name);
+		Driver_Name = new JTextField();
+		Driver_Name.setBounds(49, 171, 230, 25);
+		contentPane.add(Driver_Name);
 		
 		JButton signupbtn = new JButton("Create Account");
         signupbtn.setFocusPainted(false);
@@ -107,25 +107,25 @@ public class Signup extends JFrame {
                    try {
                        Class.forName("com.mysql.cj.jdbc.Driver");
                        
-                       String st_id = Student_ID.getText();
-                       String st_name = Student_Name.getText();
+                       String dr_id = DriverPlate.getText();
+                       String dr_name = Driver_Name.getText();
 
                        try (Connection con = DriverManager.getConnection(url, username, password);
                                Statement st = con.createStatement()) {
 
-                    	   String query = "INSERT INTO ComputerScienceStudents (Student_ID, First_Name, FARE, LANDMARK1, LANDMARK2) VALUES ('" + st_id + "', '" + st_name + "', 0, '', '')";
+                          	String query = "INSERT INTO driver (DriverPlate, First_Name, INCOME, Students) VALUES ('" + dr_id + "', '" + dr_name + "', 0, '')";
                            int rowsAffected = st.executeUpdate(query);
                            dispose();
 
                            if (rowsAffected > 0) {
-                              JOptionPane.showMessageDialog(Signup.this, "Account created successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                              JOptionPane.showMessageDialog(Signup_Driver.this, "Account created successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                            
-                              Login l = new Login();
-              				l.setLocationRelativeTo(null);
-              				l.setVisible(true);
+                              LoginDriver accs = new LoginDriver();
+                              accs.setLocationRelativeTo(null);
+                              accs.setVisible(true);
                            
                            } else {
-                               JOptionPane.showMessageDialog(Signup.this, "Failed to create account.", "Error", JOptionPane.ERROR_MESSAGE);
+                               JOptionPane.showMessageDialog(Signup_Driver.this, "Failed to create account.", "Error", JOptionPane.ERROR_MESSAGE);
                            }
 
                        } catch (SQLException ex) {

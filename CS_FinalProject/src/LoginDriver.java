@@ -20,7 +20,7 @@ import java.sql.Statement;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class Login extends JFrame {
+public class LoginDriver extends JFrame {
 
     /**
 	 * 
@@ -34,7 +34,7 @@ public class Login extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Login frame = new Login();
+                    LoginDriver frame = new LoginDriver();
                     frame.setLocationRelativeTo(null);
 
                     frame.setVisible(true);
@@ -46,7 +46,7 @@ public class Login extends JFrame {
     }
 
     
-    public Login() {
+    public LoginDriver() {
 
     	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,22 +69,22 @@ public class Login extends JFrame {
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     
-                    String st_id = txtUsername.getText();
-                    String st_name = fieldforUser.getText();
+                    String dr_id = txtUsername.getText();
+                    String dr_name = fieldforUser.getText();
                     try (Connection con = DriverManager.getConnection(url, username, password);
                             Statement st = con.createStatement()) {
 
-                        String query = "SELECT * FROM ComputerScienceStudents WHERE Student_ID = '" + st_id + "' AND First_Name = '" + st_name + "'";
+                        String query = "SELECT * FROM driver WHERE DriverPlate = '" + dr_id + "' AND First_Name = '" + dr_name + "'";
                         ResultSet rs = st.executeQuery(query);
                         
                         if (rs.next()) {
-                            String studentData = "Student ID: " + rs.getString("Student_ID")
-                                              + "\nStudent Name: " + rs.getString("First_Name");
+                            String driverData = "Driver ID: " + rs.getString("DriverPlate")
+                                              + "\nDriver Name: " + rs.getString("First_Name");
 
-                            JOptionPane.showMessageDialog(Login.this, studentData, "Student Information", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(LoginDriver.this, driverData, "Student Information", JOptionPane.INFORMATION_MESSAGE);
 
-                            StudentAccount studentAccountFrame = new StudentAccount(st_id, st_name);
-                            studentAccountFrame.frame.setVisible(true);
+                            DriverAccount studentAccountFrame2 = new DriverAccount(dr_id, dr_name);
+                            studentAccountFrame2.frame.setVisible(true);
 
                             dispose();
                         }
@@ -132,28 +132,26 @@ public class Login extends JFrame {
         fieldforUser = new JTextField();
         fieldforUser.setBounds(48, 190, 230, 25);
         contentPane.add(fieldforUser);
+       
+     
+        JLabel lblNewDriver = new JLabel("New Driver?");
+        lblNewDriver.setVerticalAlignment(SwingConstants.TOP);
+        lblNewDriver.setBounds(73, 385, 91, 14);
+        contentPane.add(lblNewDriver);
         
-        JLabel lblNewLabel = new JLabel("New Student?");
-        lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-        lblNewLabel.setBounds(73, 356, 91, 14);
-        contentPane.add(lblNewLabel);
-       
-        JButton btnNewButton = new JButton("Register");
-        btnNewButton.addActionListener(new ActionListener() {
+        JButton btnNewButton_1 = new JButton("Register");
+        btnNewButton_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
-       	Signup new_account = new Signup();
-       	
-       	new_account.setLocationRelativeTo(null);
-       	new_account.setVisible(true);
-       	dispose();
-       
+         		
+               	Signup_Driver new_account2 = new Signup_Driver();
+               	
+               	new_account2.setLocationRelativeTo(null);
+               	new_account2.setVisible(true);
+               	dispose();
         		
         	}
         });
-        btnNewButton.setBounds(174, 352, 89, 23);
-        contentPane.add(btnNewButton);
-        
-       
+        btnNewButton_1.setBounds(174, 381, 89, 23);
+        contentPane.add(btnNewButton_1);
     }
 }

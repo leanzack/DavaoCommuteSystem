@@ -20,7 +20,7 @@ import java.sql.Statement;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class Login extends JFrame {
+public class Sample extends JFrame {
 
     /**
 	 * 
@@ -34,7 +34,7 @@ public class Login extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Login frame = new Login();
+                    Sample frame = new Sample();
                     frame.setLocationRelativeTo(null);
 
                     frame.setVisible(true);
@@ -46,7 +46,7 @@ public class Login extends JFrame {
     }
 
     
-    public Login() {
+    public Sample() {
 
     	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,24 +69,44 @@ public class Login extends JFrame {
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     
-                    String st_id = txtUsername.getText();
-                    String st_name = fieldforUser.getText();
+                    
+                    
                     try (Connection con = DriverManager.getConnection(url, username, password);
-                            Statement st = con.createStatement()) {
+                    	 Statement st = con.createStatement()) {
+                    	
 
+                    	String st_id = txtUsername.getText();
+                        String st_name = fieldforUser.getText();
+                        
+                        String dr_id = txtUsername.getText();
+                        String dr_name = fieldforUser.getText();
+                        
                         String query = "SELECT * FROM ComputerScienceStudents WHERE Student_ID = '" + st_id + "' AND First_Name = '" + st_name + "'";
                         ResultSet rs = st.executeQuery(query);
                         
-                        if (rs.next()) {
+                        String driverQuery = "INSERT INTO driver (DriverPlate, First_Name, INCOME, Students) VALUES ('" + dr_id + "', '" + dr_name + "', 0, '')";
+                        int rowsAffected = st.executeUpdate(driverQuery);
+
+                        
+                        if (rowsAffected > 0) {
+                        	String DriverData = "Student ID: " + rs.getString("DriverPlate")
+                            + "\nStudent Name: " + rs.getString("First_Name");
+                            JOptionPane.showMessageDialog(Sample.this, DriverData, "Student Information", JOptionPane.INFORMATION_MESSAGE);
+                            DriverAccount driverAccountFrame = new DriverAccount(dr_id, dr_name);
+                            driverAccountFrame.frame.setVisible(true);
+                        } 
+                        
+                    
+                        if (rs.next()) {	
                             String studentData = "Student ID: " + rs.getString("Student_ID")
                                               + "\nStudent Name: " + rs.getString("First_Name");
 
-                            JOptionPane.showMessageDialog(Login.this, studentData, "Student Information", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(Sample.this, studentData, "Student Information", JOptionPane.INFORMATION_MESSAGE);
 
+                           
                             StudentAccount studentAccountFrame = new StudentAccount(st_id, st_name);
                             studentAccountFrame.frame.setVisible(true);
 
-                            dispose();
                         }
            }
 
@@ -154,6 +174,19 @@ public class Login extends JFrame {
         btnNewButton.setBounds(174, 352, 89, 23);
         contentPane.add(btnNewButton);
         
-       
+        JLabel lblNewDriver = new JLabel("New Driver?");
+        lblNewDriver.setVerticalAlignment(SwingConstants.TOP);
+        lblNewDriver.setBounds(73, 385, 91, 14);
+        contentPane.add(lblNewDriver);
+        
+        JButton btnNewButton_1 = new JButton("Register");
+        btnNewButton_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		
+        	}
+        });
+        btnNewButton_1.setBounds(174, 381, 89, 23);
+        contentPane.add(btnNewButton_1);
     }
 }
